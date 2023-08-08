@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Student">
+                <Key>
+                    <PropertyRef Name="StudentId"/>
+                </Key>
+                <Property Name="Name" Type="Edm.String" isUnique="false"/>
+                <Property Name="PhoneNo" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="Email" Type="Edm.String" isUnique="false"/>
+                <Property Name="StudentId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="NoAdhaar" Type="Model.Details" isUnique="false"/>
+                <NavigationProperty Name="Enrolled" Type="Collection(Model.Course)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Course">
+                <Key>
+                    <PropertyRef Name="CourseId"/>
+                </Key>
+                <Property Name="CourseName" Type="Edm.String" isUnique="false"/>
+                <Property Name="CourseId" Type="Edm.Int32" isUnique="false"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Students" EntityType="Model.Student">
+                    <NavigationPropertyBinding Path="Enrolled" Target="Courses"/>
+                </EntitySet>
+                <EntitySet Name="Courses" EntityType="Model.Course"/>
+            </EntityContainer>
+            <ComplexType Name="Details" BaseType="Model.Person">
+                <Property Name="NameOfPerson" Type="Edm.String" isUnique="false"/>
+            </ComplexType>
+            <ComplexType Name="Person">
+                <Property Name="PersonId" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="AadharNo" Type="Edm.Int32" isUnique="false"/>
+            </ComplexType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
